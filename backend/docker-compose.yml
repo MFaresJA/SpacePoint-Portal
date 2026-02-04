@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    container_name: spacepoint_db
+    environment:
+      POSTGRES_DB: spacepoint
+      POSTGRES_USER: spacepoint
+      POSTGRES_PASSWORD: spacepoint
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spacepoint -d spacepoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: spacepoint_api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ENV: dev
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: spacepoint
+      POSTGRES_USER: spacepoint
+      POSTGRES_PASSWORD: spacepoint
+    volumes:
+      - ./app:/app/app
+
+volumes:
+  postgres_data:
