@@ -9,3 +9,6 @@ venv/
 dist/
 build/
 *.egg-info/
+
+!.env.example
+!.env.prod.example

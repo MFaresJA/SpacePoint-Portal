@@ -25,13 +25,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      ENV: dev
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: spacepoint
-      POSTGRES_USER: spacepoint
-      POSTGRES_PASSWORD: spacepoint
+    env_file:
+      - .env.dev
     volumes:
       - ./app:/app/app
 
