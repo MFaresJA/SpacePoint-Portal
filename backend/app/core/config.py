@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     postgres_db: str = "spacepoint"
     postgres_user: str = "spacepoint"
     postgres_password: str = "spacepoint"
+    
+    jwt_secret_key: str = "change_me_super_secret"
+    jwt_algorithm: str = "HS256"
+    jwt_access_token_expire_minutes: int = 60
 
     model_config = SettingsConfigDict(
         env_file=".env.dev",  # loaded in local runs; Docker already injects env_file too
@@ -17,6 +21,7 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
     )
+
 
     @property
     def database_url(self) -> str:

@@ -3,3 +3,11 @@ uvicorn[standard]
 python-dotenv
 pydantic-settings
 psycopg[binary]
+sqlalchemy>=2.0
+psycopg2-binary
+alembic
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+email-validator
+bcrypt==3.2.2
