@@ -11,5 +11,6 @@ class AdminUserItem(BaseModel):
     roles: List[str] = []
 
 
-class AdminUserDetailResponse(AdminUserItem):
-    pass
+class AdminUsersListResponse(BaseModel):
+    total: int
+    items: List[AdminUserItem]

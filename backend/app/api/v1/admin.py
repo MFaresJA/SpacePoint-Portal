@@ -13,6 +13,19 @@ from app.services.role_service import (
     remove_role_from_user,
 )
 
+from app.schemas.roles import UserStatusResponse
+from app.services.role_service import (
+    set_user_active,
+    set_user_verified,
+    set_user_suspended,
+)
+
+from app.schemas.users import AdminUsersListResponse
+from app.services.admin_user_service import list_users_with_roles, get_user_detail
+
+from app.schemas.admin import AdminUserDetailResponse
+#from app.services.admin_user_service import get_user_detail
+
 router = APIRouter()
 
 #@router.get("/ping")
@@ -23,6 +36,22 @@ router = APIRouter()
 @router.get("/ping")
 def admin_ping(_: dict = Depends(require_roles("admin"))):
     return {"status": "ok", "role": "admin"}
+
+@router.get("/users", response_model=AdminUsersListResponse)
+def admin_list_users(
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    # safety caps
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    total, items = list_users_with_roles(db, skip=skip, limit=limit)
+    return {"total": total, "items": items}
 
 @router.get("/users/{user_id}/roles", response_model=RolesListResponse)
 def admin_list_roles(
@@ -50,3 +79,55 @@ def admin_remove_role(
     _: dict = Depends(require_roles("admin")),
 ):
     return remove_role_from_user(db, user_id, role_name)
+
+@router.patch("/users/{user_id}/activate", response_model=UserStatusResponse)
+def admin_activate_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return set_user_active(db, user_id, True)
+
+
+@router.patch("/users/{user_id}/deactivate", response_model=UserStatusResponse)
+def admin_deactivate_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return set_user_active(db, user_id, False)
+
+
+@router.patch("/users/{user_id}/verify", response_model=UserStatusResponse)
+def admin_verify_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return set_user_verified(db, user_id, True)
+
+
+@router.patch("/users/{user_id}/suspend", response_model=UserStatusResponse)
+def admin_suspend_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return set_user_suspended(db, user_id, True)
+
+
+@router.patch("/users/{user_id}/unsuspend", response_model=UserStatusResponse)
+def admin_unsuspend_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return set_user_suspended(db, user_id, False)
+
+@router.get("/users/{user_id}", response_model=AdminUserDetailResponse)
+def admin_get_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return get_user_detail(db, user_id)

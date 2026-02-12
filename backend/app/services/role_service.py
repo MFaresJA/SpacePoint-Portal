@@ -67,3 +67,38 @@ def remove_role_from_user(db: Session, user_id: int, role_name: str) -> dict:
     db.delete(row)
     db.commit()
     return {"message": f"Removed role '{role.name}' from user {user.user_id}"}
+
+def set_user_active(db: Session, user_id: int, active: bool) -> dict:
+    user = get_user_by_id(db, user_id)
+    user.is_active = active
+    db.commit()
+    return {
+        "user_id": user.user_id,
+        "is_active": user.is_active,
+        "is_verified": user.is_verified,
+        "is_suspended": user.is_suspended,
+    }
+
+
+def set_user_verified(db: Session, user_id: int, verified: bool) -> dict:
+    user = get_user_by_id(db, user_id)
+    user.is_verified = verified
+    db.commit()
+    return {
+        "user_id": user.user_id,
+        "is_active": user.is_active,
+        "is_verified": user.is_verified,
+        "is_suspended": user.is_suspended,
+    }
+
+
+def set_user_suspended(db: Session, user_id: int, suspended: bool) -> dict:
+    user = get_user_by_id(db, user_id)
+    user.is_suspended = suspended
+    db.commit()
+    return {
+        "user_id": user.user_id,
+        "is_active": user.is_active,
+        "is_verified": user.is_verified,
+        "is_suspended": user.is_suspended,
+    }

@@ -7,3 +7,9 @@ class RolesListResponse(BaseModel):
 
 class RoleActionResponse(BaseModel):
     message: str
+
+class UserStatusResponse(BaseModel):
+    user_id: int
+    is_active: bool
+    is_verified: bool
+    is_suspended: bool
