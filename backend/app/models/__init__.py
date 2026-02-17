@@ -1,20 +1,14 @@
 from .user import User
 from .role import Role
 from .user_role import UserRole
-#from .approvals import Approval
-#from .audit import AuditLog
-#from .content import ContentItem
-#from .points import PointsLedger
-#from .submissions import Submission
+
+from .submissions import OnboardingSubmission, QuizSubmission, ScenarioSubmission
 
 __all__ = [
     "User",
     "Role",
-    "UserRole"
+    "UserRole",
+    "OnboardingSubmission",
+    "QuizSubmission",
+    "ScenarioSubmission",
 ]
-
-#"Approval",
-    #"AuditLog",
-    #"ContentItem",
-    #"PointsLedger",
-    #"Submission",
