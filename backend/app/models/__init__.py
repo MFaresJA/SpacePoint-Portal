@@ -3,6 +3,7 @@ from .role import Role
 from .user_role import UserRole
 
 from .submissions import OnboardingSubmission, QuizSubmission, ScenarioSubmission
+from .approvals import Approval
 
 __all__ = [
     "User",
@@ -11,4 +12,5 @@ __all__ = [
     "OnboardingSubmission",
     "QuizSubmission",
     "ScenarioSubmission",
+    "Approval",
 ]

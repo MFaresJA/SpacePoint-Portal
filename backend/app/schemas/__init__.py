@@ -6,3 +6,4 @@ from .journey import (
     SubmissionOut,
     JourneyProgressOut,
 )
+from .approvals import ApprovalDecisionIn

@@ -25,6 +25,9 @@ from app.services.admin_user_service import list_users_with_roles, get_user_deta
 
 from app.schemas.admin import AdminUserDetailResponse
 #from app.services.admin_user_service import get_user_detail
+from app.schemas.approvals import ApprovalDecisionIn
+from app.services.approval_service import decide_quiz, decide_scenario
+
 
 router = APIRouter()
 
@@ -131,3 +134,34 @@ def admin_get_user(
     _: dict = Depends(require_roles("admin")),
 ):
     return get_user_detail(db, user_id)
+
+@router.post("/approvals/quiz/{quiz_id}")
+def admin_decide_quiz(
+    quiz_id: int,
+    payload: ApprovalDecisionIn,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return decide_quiz(
+        db=db,
+        admin_user_id=admin.user_id,
+        quiz_id=quiz_id,
+        decision=payload.decision,
+        reason=payload.reason,
+    )
+
+
+@router.post("/approvals/scenario/{scenario_id}")
+def admin_decide_scenario(
+    scenario_id: int,
+    payload: ApprovalDecisionIn,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return decide_scenario(
+        db=db,
+        admin_user_id=admin.user_id,
+        scenario_id=scenario_id,
+        decision=payload.decision,
+        reason=payload.reason,
+    )
