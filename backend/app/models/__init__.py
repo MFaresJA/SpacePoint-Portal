@@ -5,6 +5,8 @@ from .user_role import UserRole
 from .submissions import OnboardingSubmission, QuizSubmission, ScenarioSubmission
 from .approvals import Approval
 
+from .content import ContentItem, ContentAccessLog
+
 __all__ = [
     "User",
     "Role",
@@ -13,4 +15,6 @@ __all__ = [
     "QuizSubmission",
     "ScenarioSubmission",
     "Approval",
+    "ContentItem",
+    "ContentAccessLog",
 ]
