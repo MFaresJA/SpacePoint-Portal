@@ -94,3 +94,35 @@ def create_scenario(db: Session, user_id: int, scenario_url: str, version: int) 
     db.commit()
     db.refresh(obj)
     return obj
+
+def list_onboarding(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> list[OnboardingSubmission]:
+    return (
+        db.query(OnboardingSubmission)
+        .filter(OnboardingSubmission.user_id == user_id)
+        .order_by(OnboardingSubmission.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+
+def list_quizzes(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> list[QuizSubmission]:
+    return (
+        db.query(QuizSubmission)
+        .filter(QuizSubmission.user_id == user_id)
+        .order_by(QuizSubmission.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+
+def list_scenarios(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> list[ScenarioSubmission]:
+    return (
+        db.query(ScenarioSubmission)
+        .filter(ScenarioSubmission.user_id == user_id)
+        .order_by(ScenarioSubmission.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )

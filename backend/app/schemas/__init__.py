@@ -10,6 +10,17 @@ from .journey import (
 from .approvals import ApprovalDecisionIn
 from .content import ContentItemOut, ContentResponse
 
+from .admin_approvals import PendingApprovalsResponse, PendingApprovalItem
+
+from .submission_history import (
+    OnboardingHistoryResponse,
+    QuizHistoryResponse,
+    ScenarioHistoryResponse,
+    OnboardingHistoryItem,
+    QuizHistoryItem,
+    ScenarioHistoryItem,
+)
+
 __all__ = [
     "AdminUserItem",
     "AdminUsersListResponse",
@@ -21,4 +32,12 @@ __all__ = [
     "ApprovalDecisionIn",
     "ContentItemOut",
     "ContentResponse",
+    "PendingApprovalsResponse",
+    "PendingApprovalItem",
+    "OnboardingHistoryResponse",
+    "QuizHistoryResponse",
+    "ScenarioHistoryResponse",
+    "OnboardingHistoryItem",
+    "QuizHistoryItem",
+    "ScenarioHistoryItem",
 ]

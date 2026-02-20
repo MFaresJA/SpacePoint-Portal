@@ -28,6 +28,9 @@ from app.schemas.admin import AdminUserDetailResponse
 from app.schemas.approvals import ApprovalDecisionIn
 from app.services.approval_service import decide_quiz, decide_scenario
 
+from app.schemas.admin_approvals import PendingApprovalsResponse
+from app.services.admin_approval_service import get_pending_approvals
+
 
 router = APIRouter()
 
@@ -165,3 +168,17 @@ def admin_decide_scenario(
         decision=payload.decision,
         reason=payload.reason,
     )
+
+@router.get("/approvals/pending", response_model=PendingApprovalsResponse)
+def admin_list_pending_approvals(
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    return get_pending_approvals(db=db, skip=skip, limit=limit)
