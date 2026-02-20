@@ -120,9 +120,7 @@ def get_journey_progress(db: Session, user_id: int) -> JourneyProgressOut:
             locked_reasons=reasons,
         )
 
-    # ----------------------------
-    # 7️⃣ Scenario approved
-    # ----------------------------
+    # Scenario approved
     completed.append(JourneyStep.ADVANCED_UNLOCKED)
 
     return JourneyProgressOut(

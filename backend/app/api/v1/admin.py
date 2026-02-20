@@ -31,6 +31,19 @@ from app.services.approval_service import decide_quiz, decide_scenario
 from app.schemas.admin_approvals import PendingApprovalsResponse
 from app.services.admin_approval_service import get_pending_approvals
 
+from app.schemas.journey import JourneyProgressOut
+from app.services.journey_service import get_journey_progress
+
+from app.schemas.submission_history import (
+    OnboardingHistoryResponse,
+    QuizHistoryResponse,
+    ScenarioHistoryResponse,
+)
+from app.services.submission_history_service import (
+    get_onboarding_history,
+    get_quiz_history,
+    get_scenario_history,
+)
 
 router = APIRouter()
 
@@ -182,3 +195,56 @@ def admin_list_pending_approvals(
         skip = 0
 
     return get_pending_approvals(db=db, skip=skip, limit=limit)
+
+@router.get("/users/{user_id}/journey/progress", response_model=JourneyProgressOut)
+def admin_get_user_journey_progress(
+    user_id: int,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return get_journey_progress(db=db, user_id=user_id)
+
+@router.get("/users/{user_id}/submissions/onboarding", response_model=OnboardingHistoryResponse)
+def admin_get_user_onboarding_history(
+    user_id: int,
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    return get_onboarding_history(db=db, user_id=user_id, skip=skip, limit=limit)
+
+@router.get("/users/{user_id}/submissions/quiz", response_model=QuizHistoryResponse)
+def admin_get_user_quiz_history(
+    user_id: int,
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    return get_quiz_history(db=db, user_id=user_id, skip=skip, limit=limit)
+
+@router.get("/users/{user_id}/submissions/scenario", response_model=ScenarioHistoryResponse)
+def admin_get_user_scenario_history(
+    user_id: int,
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    return get_scenario_history(db=db, user_id=user_id, skip=skip, limit=limit)
