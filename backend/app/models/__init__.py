@@ -7,6 +7,8 @@ from .approvals import Approval
 
 from .content import ContentItem, ContentAccessLog
 
+from .application import Application
+
 __all__ = [
     "User",
     "Role",
@@ -17,4 +19,5 @@ __all__ = [
     "Approval",
     "ContentItem",
     "ContentAccessLog",
+    "Application",
 ]

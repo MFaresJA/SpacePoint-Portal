@@ -29,6 +29,10 @@ services:
       - .env.dev
     volumes:
       - ./app:/app/app
+      - ./alembic:/app/alembic
+      - ./alembic.ini:/app/alembic.ini
+      - ./backend/uploads:/app/uploads
+      
 
 volumes:
   postgres_data:

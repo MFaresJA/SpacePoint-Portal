@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth, instructor, ambassador, intern, admin, content, leaderboard, health
-
+from app.api.v1 import auth, instructor, ambassador, intern, admin, content, leaderboard, health, application, admin_applications
 
 api_v1_router = APIRouter()
 
@@ -13,3 +12,5 @@ api_v1_router.include_router(admin.router, prefix="/admin", tags=["admin"])
 api_v1_router.include_router(content.router, prefix="/content", tags=["content"])
 api_v1_router.include_router(leaderboard.router, prefix="/leaderboard", tags=["leaderboard"])
 api_v1_router.include_router(health.router, tags=["health"])
+api_v1_router.include_router(application.router, prefix="/application", tags=["application"])
+api_v1_router.include_router(admin_applications.router, prefix="/admin", tags=["admin"])
