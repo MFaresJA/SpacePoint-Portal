@@ -49,6 +49,9 @@ from fastapi.responses import FileResponse
 from app.repositories import application_repo
 from app.schemas.application import ApplicationsListResponse, ApplicationOut
 
+from app.schemas.admin_user_review import AdminUserReviewResponse
+from app.services.admin_user_review_service import get_admin_user_review
+
 router = APIRouter()
 
 #@router.get("/ping")
@@ -334,3 +337,12 @@ def admin_download_application_file(
         raise HTTPException(status_code=400, detail="which must be space_terms or cv")
 
     return FileResponse(path, media_type="application/pdf", filename=path.split("/")[-1])
+
+
+@router.get("/users/{user_id}/review", response_model=AdminUserReviewResponse)
+def admin_user_review(
+    user_id: int,
+    db: Session = Depends(get_db),
+    admin_user=Depends(require_roles("admin")),
+):
+    return get_admin_user_review(db, user_id)
