@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.repositories import ambassador_repo
-
+from datetime import date as _date
 
 _ALLOWED_STATUSES = {"PENDING", "APPROVED", "REJECTED", "UNDER_REVIEW"}
 
@@ -58,6 +58,8 @@ def submit_impact_report(
         raise HTTPException(status_code=400, detail="evidence_url is required")
     if not location:
         raise HTTPException(status_code=400, detail="location is required")
+    if event_date > _date.today():
+        raise HTTPException(status_code=400, detail="event_date cannot be in the future")
 
     if hours < 0 or people_reached < 0:
         raise HTTPException(status_code=400, detail="hours/people_reached must be >= 0")

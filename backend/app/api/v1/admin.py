@@ -45,12 +45,14 @@ from app.services.submission_history_service import (
     get_scenario_history,
 )
 
-from fastapi.responses import FileResponse
-from app.repositories import application_repo
-from app.schemas.application import ApplicationsListResponse, ApplicationOut
+#from fastapi.responses import FileResponse
+#from app.repositories import application_repo
+#from app.schemas.application import ApplicationsListResponse, ApplicationOut
 
 from app.schemas.admin_user_review import AdminUserReviewResponse
 from app.services.admin_user_review_service import get_admin_user_review
+
+#from fastapi import HTTPException
 
 router = APIRouter()
 
@@ -256,87 +258,87 @@ def admin_get_user_scenario_history(
 
     return get_scenario_history(db=db, user_id=user_id, skip=skip, limit=limit)
 
-@router.get("/applications", response_model=ApplicationsListResponse)
-def admin_list_applications(
-    skip: int = 0,
-    limit: int = 50,
-    db: Session = Depends(get_db),
-    _: dict = Depends(require_roles("admin")),
-):
-    total, items = application_repo.list_applications(db, skip=skip, limit=limit)
-    return {
-        "total": total,
-        "items": [
-            {
-                "id": a.id,
-                "user_id": a.user_id,
-                "apply_as": a.apply_as,
-                "name": a.name,
-                "phone": a.phone,
-                "email": a.email,
-                "university": a.university,
-                "highest_degree": a.highest_degree,
-                "city_of_residence": a.city_of_residence,
-                "deliver_cities": a.deliver_cities.split(","),
-                "background_areas": a.background_areas.split(","),
-                "video1_summary": a.video1_summary,
-                "video2_summary": a.video2_summary,
-                "video3_summary": a.video3_summary,
-                "created_at": a.created_at,
-            }
-            for a in items
-        ],
-    }
+#@router.get("/applications", response_model=ApplicationsListResponse)
+#def admin_list_applications(
+#    skip: int = 0,
+#    limit: int = 50,
+#    db: Session = Depends(get_db),
+#    _: dict = Depends(require_roles("admin")),
+#):
+#    total, items = application_repo.list_applications(db, skip=skip, limit=limit)
+#    return {
+#        "total": total,
+#        "items": [
+#            {
+#                "id": a.id,
+#                "user_id": a.user_id,
+#                "apply_as": a.apply_as,
+#                "name": a.name,
+#                "phone": a.phone,
+#                "email": a.email,
+#                "university": a.university,
+#                "highest_degree": a.highest_degree,
+#                "city_of_residence": a.city_of_residence,
+#                "deliver_cities": a.deliver_cities.split(","),
+#                "background_areas": a.background_areas.split(","),
+#                "video1_summary": a.video1_summary,
+#                "video2_summary": a.video2_summary,
+#                "video3_summary": a.video3_summary,
+#                "created_at": a.created_at,
+#            }
+#            for a in items
+#        ],
+#    }
 
 
-@router.get("/applications/{app_id}", response_model=ApplicationOut)
-def admin_get_application(
-    app_id: int,
-    db: Session = Depends(get_db),
-    _: dict = Depends(require_roles("admin")),
-):
-    a = application_repo.get_application(db, app_id)
-    if not a:
-        raise HTTPException(status_code=404, detail="Application not found.")
-    return {
-        "id": a.id,
-        "user_id": a.user_id,
-        "apply_as": a.apply_as,
-        "name": a.name,
-        "phone": a.phone,
-        "email": a.email,
-        "university": a.university,
-        "highest_degree": a.highest_degree,
-        "city_of_residence": a.city_of_residence,
-        "deliver_cities": a.deliver_cities.split(","),
-        "background_areas": a.background_areas.split(","),
-        "video1_summary": a.video1_summary,
-        "video2_summary": a.video2_summary,
-        "video3_summary": a.video3_summary,
-        "created_at": a.created_at,
-    }
+#@router.get("/applications/{app_id}", response_model=ApplicationOut)
+#def admin_get_application(
+#    app_id: int,
+#    db: Session = Depends(get_db),
+#    _: dict = Depends(require_roles("admin")),
+#):
+#    a = application_repo.get_application(db, app_id)
+#    if not a:
+#        raise HTTPException(status_code=404, detail="Application not found.")
+#    return {
+#        "id": a.id,
+#        "user_id": a.user_id,
+#        "apply_as": a.apply_as,
+#        "name": a.name,
+#        "phone": a.phone,
+#        "email": a.email,
+#        "university": a.university,
+#        "highest_degree": a.highest_degree,
+#        "city_of_residence": a.city_of_residence,
+#        "deliver_cities": a.deliver_cities.split(","),
+#        "background_areas": a.background_areas.split(","),
+#        "video1_summary": a.video1_summary,
+#        "video2_summary": a.video2_summary,
+#        "video3_summary": a.video3_summary,
+#        "created_at": a.created_at,
+#    }
 
 
-@router.get("/applications/{app_id}/files/{which}")
-def admin_download_application_file(
-    app_id: int,
-    which: str,
-    db: Session = Depends(get_db),
-    _: dict = Depends(require_roles("admin")),
-):
-    a = application_repo.get_application(db, app_id)
-    if not a:
-        raise HTTPException(status_code=404, detail="Application not found.")
-
-    which = which.lower()
-    if which == "space_terms":
-        path = a.space_terms_pdf_path
-    elif which == "cv":
-        path = a.cv_pdf_path
-    else:
-        raise HTTPException(status_code=400, detail="which must be space_terms or cv")
-
-    return FileResponse(path, media_type="application/pdf", filename=path.split("/")[-1])
+#@router.get("/applications/{app_id}/files/{which}")
+#def admin_download_application_file(
+#    app_id: int,
+#    which: str,
+#    db: Session = Depends(get_db),
+#    _: dict = Depends(require_roles("admin")),
+#):
+#    a = application_repo.get_application(db, app_id)
+#    if not a:
+#        raise HTTPException(status_code=404, detail="Application not found.")
+#
+#    which = which.lower()
+#    if which == "space_terms":
+#        path = a.space_terms_pdf_path
+#    elif which == "cv":
+#        path = a.cv_pdf_path
+#    else:
+#        raise HTTPException(status_code=400, detail="which must be space_terms or cv")
+#
+#    return FileResponse(path, media_type="application/pdf", filename=path.split("/")[-1])
 
 
 @router.get("/users/{user_id}/review", response_model=AdminUserReviewResponse)

@@ -17,7 +17,7 @@ from app.schemas.ambassador import (
 )
 from app.services.ambassador_service import admin_update_recruitment, admin_update_impact
 
-router = APIRouter(prefix="/admin/ambassador", tags=["Admin - Ambassador"])
+router = APIRouter()
 
 
 @router.get("/recruitment", response_model=RecruitmentListResponse)
