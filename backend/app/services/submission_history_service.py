@@ -7,9 +7,11 @@ from app.schemas.submission_history import (
     OnboardingHistoryResponse,
     QuizHistoryResponse,
     ScenarioHistoryResponse,
+    OnsiteLogHistoryResponse,
     OnboardingHistoryItem,
     QuizHistoryItem,
     ScenarioHistoryItem,
+    OnsiteLogHistoryItem,
 )
 
 
@@ -52,6 +54,24 @@ def get_scenario_history(db: Session, user_id: int, skip: int = 0, limit: int = 
                 scenario_url=i.scenario_url,
                 status=i.status,
                 version=i.version,
+                created_at=i.created_at,
+            )
+            for i in items
+        ],
+    )
+
+
+def get_onsite_log_history(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> OnsiteLogHistoryResponse:
+    items = submission_repo.list_onsite_logs(db=db, user_id=user_id, skip=skip, limit=limit)
+    return OnsiteLogHistoryResponse(
+        total=len(items),
+        items=[
+            OnsiteLogHistoryItem(
+                id=i.id,
+                session_type=i.session_type,
+                notes=i.notes,
+                evidence_url=i.evidence_url,
+                status=i.status,
                 created_at=i.created_at,
             )
             for i in items

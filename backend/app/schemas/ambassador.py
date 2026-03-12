@@ -4,7 +4,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, Field
 
 
-# ---------- Recruitment Entries ----------
+# Recruitment Entries 
 
 class RecruitmentEntryCreate(BaseModel):
     name: str = Field(..., max_length=200)
@@ -36,7 +36,7 @@ class AdminUpdateRecruitmentIn(BaseModel):
     notes: str | None = Field(None, max_length=1000)
 
 
-# ---------- Impact Reports ----------
+# Impact Reports 
 
 class ImpactReportCreate(BaseModel):
     title: str = Field(..., max_length=200)

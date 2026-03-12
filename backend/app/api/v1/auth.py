@@ -2,21 +2,21 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.deps.auth import get_current_user
-
-
-
 from app.deps.db import get_db
 from app.schemas.auth import (
     RegisterRequest,
     LoginRequest,
     TokenResponse,
+    AccessTokenResponse,
+    RefreshTokenRequest,
     UserMeResponse,
 )
 from app.services.auth_service import (
     get_user_by_email,
     create_user,
     authenticate_user,
-    generate_access_token,
+    generate_token_pair,
+    refresh_access_token,
 )
 from app.models.user import User
 
@@ -33,9 +33,7 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
         )
 
     user = create_user(db, payload.email, payload.password)
-    token = generate_access_token(user)
-
-    return {"access_token": token, "token_type": "bearer"}
+    return generate_token_pair(user)
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -47,13 +45,23 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
             detail="Invalid email or password",
         )
 
-    token = generate_access_token(user)
-    return {"access_token": token, "token_type": "bearer"}
+    return generate_token_pair(user)
+
+
+@router.post("/token/refresh", response_model=AccessTokenResponse)
+def refresh_token(payload: RefreshTokenRequest, db: Session = Depends(get_db)):
+    new_access_token = refresh_access_token(db, payload.refresh_token)
+    if not new_access_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid refresh token",
+        )
+
+    return {"access_token": new_access_token, "token_type": "bearer"}
 
 
 @router.get("/me", response_model=UserMeResponse)
 def me(current_user: User = Depends(get_current_user)):
-    # Placeholder — we will inject current_user via JWT dependency in next step
     return UserMeResponse(
         user_id=current_user.user_id,
         email=current_user.email,

@@ -7,15 +7,14 @@ from pydantic import BaseModel
 
 from app.utils.enums import SubmissionStatus
 
-
-EntityType = Literal["quiz", "scenario"]
+EntityType = Literal["quiz", "scenario", "onsite_log"]
 
 
 class PendingApprovalItem(BaseModel):
     entity_type: EntityType
     entity_id: int
     user_id: int
-    status: SubmissionStatus
+    status: str
     created_at: datetime
 
     # quiz-only fields
@@ -26,6 +25,11 @@ class PendingApprovalItem(BaseModel):
     # scenario-only fields
     scenario_url: Optional[str] = None
     version: Optional[int] = None
+
+    # onsite-only fields
+    session_type: Optional[str] = None
+    notes: Optional[str] = None
+    evidence_url: Optional[str] = None
 
 
 class PendingApprovalsResponse(BaseModel):

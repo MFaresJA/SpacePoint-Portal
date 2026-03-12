@@ -1,4 +1,4 @@
-from typing import Callable, Iterable
+from typing import Callable
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -29,6 +29,8 @@ def require_roles(*allowed_roles: str) -> Callable:
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail=f"Requires one of roles: {sorted(allowed)}",
             )
+
+        current_user.role_names = list(role_names)
         return current_user
 
     return dependency

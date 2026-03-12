@@ -42,5 +42,5 @@ class ApplicationsListResponse(BaseModel):
 
 
 class AdminUpdateApplicationIn(BaseModel):
-    status: str | None = None  # e.g. "SUBMITTED", "UNDER_REVIEW", "APPROVED", "REJECTED"
+    status: str | None = None  # "SUBMITTED", "UNDER_REVIEW", "APPROVED", "REJECTED"
     admin_notes: str | None = None

@@ -6,7 +6,7 @@ from sqlalchemy import func
 from app.models.intern import Challenge, ChallengeSubmission, SubmissionReview, InternTodo
 
 
-# -------- Challenges --------
+# Challenges 
 
 def list_challenges(db: Session, *, skip: int = 0, limit: int = 50, active_only: bool = True):
     q = db.query(Challenge)
@@ -36,7 +36,7 @@ def get_challenge(db: Session, challenge_id: int) -> Challenge | None:
     return db.query(Challenge).filter(Challenge.id == challenge_id).first()
 
 
-# -------- Submissions --------
+# Submissions 
 
 def create_submission(
     db: Session,
@@ -96,7 +96,7 @@ def create_review(db: Session, *, submission_id: int, reviewer_user_id: int, dec
     return obj
 
 
-# -------- Todos --------
+# Todos 
 
 def create_todo(db: Session, *, user_id: int, title: str):
     obj = InternTodo(user_id=user_id, title=title, status="TODO")
@@ -133,7 +133,7 @@ def delete_todo(db: Session, todo: InternTodo):
     db.commit()
 
 
-# -------- Progress --------
+# Progress 
 
 def get_intern_progress(db: Session, *, user_id: int):
     total_sub = db.query(func.count(ChallengeSubmission.id)).filter(ChallengeSubmission.user_id == user_id).scalar() or 0

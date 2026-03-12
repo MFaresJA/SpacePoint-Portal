@@ -13,8 +13,8 @@ class Challenge(Base):
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
 
-    # optional helpful fields
-    difficulty: Mapped[str | None] = mapped_column(String(30), nullable=True)  # BEGINNER/MID/ADV
+    
+    difficulty: Mapped[str | None] = mapped_column(String(30), nullable=True)  # "Easy", "Medium", "Hard"
     due_date: Mapped[Date | None] = mapped_column(Date, nullable=True)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
 

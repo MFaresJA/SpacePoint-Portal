@@ -2,11 +2,9 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from app.models.submissions import OnboardingSubmission, QuizSubmission, ScenarioSubmission
-from app.utils.enums import SubmissionStatus
+from app.models.submissions import OnboardingSubmission, QuizSubmission, ScenarioSubmission, OnsiteLog
+from app.utils.enums import SubmissionStatus, OnsiteLogStatus
 
-
-# ---------- Read helpers (latest records) ----------
 
 def get_latest_onboarding(db: Session, user_id: int) -> OnboardingSubmission | None:
     return (
@@ -59,7 +57,26 @@ def get_latest_approved_scenario(db: Session, user_id: int) -> ScenarioSubmissio
     )
 
 
-# ---------- Create helpers (new submissions) ----------
+def get_latest_onsite_log(db: Session, user_id: int) -> OnsiteLog | None:
+    return (
+        db.query(OnsiteLog)
+        .filter(OnsiteLog.user_id == user_id)
+        .order_by(OnsiteLog.created_at.desc())
+        .first()
+    )
+
+
+def get_latest_verified_onsite_log(db: Session, user_id: int) -> OnsiteLog | None:
+    return (
+        db.query(OnsiteLog)
+        .filter(
+            OnsiteLog.user_id == user_id,
+            OnsiteLog.status == OnsiteLogStatus.VERIFIED,
+        )
+        .order_by(OnsiteLog.created_at.desc())
+        .first()
+    )
+
 
 def create_onboarding(db: Session, user_id: int, reference_url: str) -> OnboardingSubmission:
     obj = OnboardingSubmission(user_id=user_id, reference_url=reference_url)
@@ -95,6 +112,44 @@ def create_scenario(db: Session, user_id: int, scenario_url: str, version: int) 
     db.refresh(obj)
     return obj
 
+
+def create_onsite_log(
+    db: Session,
+    user_id: int,
+    session_type: str,
+    notes: str | None,
+    evidence_url: str,
+) -> OnsiteLog:
+    obj = OnsiteLog(
+        user_id=user_id,
+        session_type=session_type,
+        notes=notes,
+        evidence_url=evidence_url,
+        status=OnsiteLogStatus.SUBMITTED,
+    )
+    db.add(obj)
+    db.commit()
+    db.refresh(obj)
+    return obj
+
+
+def update_onsite_log_status(
+    db: Session,
+    onsite_log: OnsiteLog,
+    *,
+    status: OnsiteLogStatus,
+) -> OnsiteLog:
+    onsite_log.status = status
+    db.add(onsite_log)
+    db.commit()
+    db.refresh(onsite_log)
+    return onsite_log
+
+
+def get_onsite_log_by_id(db: Session, onsite_log_id: int) -> OnsiteLog | None:
+    return db.query(OnsiteLog).filter(OnsiteLog.id == onsite_log_id).first()
+
+
 def list_onboarding(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> list[OnboardingSubmission]:
     return (
         db.query(OnboardingSubmission)
@@ -126,3 +181,15 @@ def list_scenarios(db: Session, user_id: int, skip: int = 0, limit: int = 50) ->
         .limit(limit)
         .all()
     )
+
+
+def list_onsite_logs(db: Session, user_id: int, skip: int = 0, limit: int = 50) -> list[OnsiteLog]:
+    return (
+        db.query(OnsiteLog)
+        .filter(OnsiteLog.user_id == user_id)
+        .order_by(OnsiteLog.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+

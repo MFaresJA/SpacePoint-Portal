@@ -18,7 +18,7 @@ class Application(Base):
         nullable=False,
     )
 
-    # "intern" or "instructor" (you used varchar(20) in the DB)
+    # "intern" or "instructor" 
     track: Mapped[str] = mapped_column(String(20), nullable=False)
 
     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
@@ -29,8 +29,8 @@ class Application(Base):
 
     city_of_residence: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    deliver_cities: Mapped[list] = mapped_column(JSON, nullable=False)     # list[str]
-    background_areas: Mapped[list] = mapped_column(JSON, nullable=False)   # list[str]
+    deliver_cities: Mapped[list] = mapped_column(JSON, nullable=False)     
+    background_areas: Mapped[list] = mapped_column(JSON, nullable=False)   
 
     video1_summary: Mapped[str] = mapped_column(Text, nullable=False)
     video2_summary: Mapped[str] = mapped_column(Text, nullable=False)

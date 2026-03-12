@@ -29,6 +29,15 @@ class ScenarioHistoryItem(BaseModel):
     created_at: datetime
 
 
+class OnsiteLogHistoryItem(BaseModel):
+    id: int
+    session_type: str
+    notes: str | None
+    evidence_url: str
+    status: str
+    created_at: datetime
+
+
 class OnboardingHistoryResponse(BaseModel):
     total: int
     items: list[OnboardingHistoryItem]
@@ -42,3 +51,8 @@ class QuizHistoryResponse(BaseModel):
 class ScenarioHistoryResponse(BaseModel):
     total: int
     items: list[ScenarioHistoryItem]
+
+
+class OnsiteLogHistoryResponse(BaseModel):
+    total: int
+    items: list[OnsiteLogHistoryItem]

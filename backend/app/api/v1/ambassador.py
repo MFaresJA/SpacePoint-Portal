@@ -28,7 +28,7 @@ def ambassador_ping(_: dict = Depends(require_roles("ambassador", "admin"))):
     return {"ok": True, "msg": "ambassador access granted"}
 
 
-# ---------------- Recruitment ----------------
+# Recruitment
 
 @router.post("/recruitment", response_model=RecruitmentEntryOut)
 def create_recruitment(
@@ -86,7 +86,7 @@ def get_my_recruitment_entry(
     return entry
 
 
-# ---------------- Impact Reports ----------------
+# Impact Reports 
 
 @router.post("/impact", response_model=ImpactReportOut)
 def create_impact(

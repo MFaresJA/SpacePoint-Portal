@@ -22,7 +22,7 @@ async def application_submit(
     city_of_residence: str = Form(...),
 
     deliver_cities: str = Form(...),      # comma-separated from UI
-    background_areas: str = Form(...),    # comma-separated from UI
+    background_areas: str = Form(...),    
 
     video1_summary: str = Form(...),
     video2_summary: str = Form(...),
@@ -32,7 +32,7 @@ async def application_submit(
     cv_pdf: UploadFile = File(...),
 
     db: Session = Depends(get_db),
-    # TEMP: allow any logged-in role; later we’ll switch to "any authenticated user"
+    
     user=Depends(require_roles("admin", "intern", "instructor", "ambassador")),
 ):
     deliver_list = [x.strip() for x in deliver_cities.split(",") if x.strip()]
@@ -49,7 +49,7 @@ async def application_submit(
         highest_degree=highest_degree,
         city_of_residence=city_of_residence,
         deliver_cities=deliver_list,         # service will store as JSON
-        background_areas=background_list,    # service will store as JSON
+        background_areas=background_list,    
         video1_summary=video1_summary,
         video2_summary=video2_summary,
         video3_summary=video3_summary,

@@ -8,7 +8,7 @@ class ContentItem(Base):
     __tablename__ = "content_items"
 
     id = Column(Integer, primary_key=True, index=True)
-    key = Column(String(50), nullable=False, index=True)  # e.g. "intro-slides", "advanced-slides"
+    key = Column(String(50), nullable=False, index=True)  # "intro-slides", "advanced-slides"
     title = Column(String(200), nullable=False)
     url = Column(String(500), nullable=False)
     is_active = Column(Boolean, nullable=False, default=True)

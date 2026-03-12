@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.models.ambassador import ImpactReport, RecruitmentEntry
 
 
-# -------- Recruitment --------
+# Recruitment 
 
 def create_recruitment_entry(
     db: Session,
@@ -69,7 +69,7 @@ def update_recruitment_admin_fields(
     return entry
 
 
-# -------- Impact Reports --------
+# Impact Reports 
 
 def create_impact_report(
     db: Session,

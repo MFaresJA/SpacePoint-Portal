@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     jwt_secret_key: str = "change_me_super_secret"
     jwt_algorithm: str = "HS256"
     jwt_access_token_expire_minutes: int = 60
+    jwt_refresh_token_expire_days: int = 7
 
     model_config = SettingsConfigDict(
         env_file=".env.dev",  # loaded in local runs; Docker already injects env_file too

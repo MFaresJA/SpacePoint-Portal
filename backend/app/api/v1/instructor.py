@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.deps.roles import require_roles
 from app.deps.db import get_db  
-from app.schemas.journey import OnboardingSubmitIn, QuizSubmitIn, ScenarioSubmitIn, SubmissionOut
+from app.schemas.journey import OnboardingSubmitIn, QuizSubmitIn, ScenarioSubmitIn, SubmissionOut, OnsiteLogSubmitIn, SubmissionOut, OnsiteLogOut
 from app.services import instructor_service
 
 from app.services.journey_service import get_journey_progress
@@ -13,11 +13,13 @@ from app.schemas.submission_history import (
     OnboardingHistoryResponse,
     QuizHistoryResponse,
     ScenarioHistoryResponse,
+    OnsiteLogHistoryResponse,
 )
 from app.services.submission_history_service import (
     get_onboarding_history,
     get_quiz_history,
     get_scenario_history,
+    get_onsite_log_history,
 )
 
 router = APIRouter()
@@ -56,7 +58,34 @@ def submit_scenario(
 ):
     obj = instructor_service.submit_scenario(db=db, user_id=user.user_id, scenario_url=str(payload.scenario_url))
     return {"id": obj.id, "status": obj.status, "created_at": obj.created_at}
-
+@router.post("/onsite-logs", response_model=OnsiteLogOut)
+def submit_onsite_logs(
+    payload: OnsiteLogSubmitIn,
+    db: Session = Depends(get_db),
+    user=Depends(require_roles("instructor")),
+):
+    return instructor_service.submit_onsite_log(
+        db=db,
+        user_id=user.user_id,
+        session_type=payload.session_type,
+        notes=payload.notes,
+        evidence_url=str(payload.evidence_url),
+    )
+    
+@router.post("/onsite-logs", response_model=OnsiteLogOut)
+def submit_onsite_logs(
+    payload: OnsiteLogSubmitIn,
+    db: Session = Depends(get_db),
+    user=Depends(require_roles("instructor")),
+):
+    return instructor_service.submit_onsite_log(
+        db=db,
+        user_id=user.user_id,
+        session_type=payload.session_type,
+        notes=payload.notes,
+        evidence_url=str(payload.evidence_url),
+    )
+    
 @router.get("/journey/progress", response_model=JourneyProgressOut)
 def journey_progress(
     db: Session = Depends(get_db),
@@ -92,3 +121,12 @@ def scenario_history(
     user=Depends(require_roles("instructor", "admin")),
 ):
     return get_scenario_history(db=db, user_id=user.user_id, skip=skip, limit=limit)
+
+@router.get("/submissions/onsite-logs", response_model=OnsiteLogHistoryResponse)
+def onsite_logs_history(
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    user=Depends(require_roles("instructor", "admin")),
+):
+    return get_onsite_log_history(db=db, user_id=user.user_id, skip=skip, limit=limit)

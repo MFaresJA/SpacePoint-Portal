@@ -4,7 +4,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, Field
 
 
-# -------- Challenges --------
+# Challenges 
 
 class ChallengeOut(BaseModel):
     id: int
@@ -32,7 +32,7 @@ class AdminChallengeCreate(BaseModel):
     is_active: bool = True
 
 
-# -------- Submissions --------
+# Submissions 
 
 class SubmissionCreate(BaseModel):
     challenge_id: int
@@ -64,7 +64,7 @@ class AdminReviewSubmissionIn(BaseModel):
     feedback: str | None = Field(None, max_length=2000)
 
 
-# -------- Todos --------
+# Todos 
 
 class TodoCreate(BaseModel):
     title: str = Field(..., max_length=300)
@@ -92,7 +92,7 @@ class TodosListResponse(BaseModel):
     items: list[TodoOut]
 
 
-# -------- Progress --------
+# Progress 
 
 class InternProgressOut(BaseModel):
     total_submissions: int

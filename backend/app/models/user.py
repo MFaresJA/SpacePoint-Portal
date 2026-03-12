@@ -19,4 +19,4 @@ class User(Base):
     onboarding_submissions = relationship("OnboardingSubmission", back_populates="user", cascade="all, delete-orphan")
     quiz_submissions = relationship("QuizSubmission", back_populates="user", cascade="all, delete-orphan")
     scenario_submissions = relationship("ScenarioSubmission", back_populates="user", cascade="all, delete-orphan")
-
+    onsite_logs = relationship("OnsiteLog", back_populates="user", cascade="all, delete-orphan")

@@ -26,7 +26,7 @@ from app.services.admin_user_service import list_users_with_roles, get_user_deta
 from app.schemas.admin import AdminUserDetailResponse
 #from app.services.admin_user_service import get_user_detail
 from app.schemas.approvals import ApprovalDecisionIn
-from app.services.approval_service import decide_quiz, decide_scenario
+from app.services.approval_service import decide_quiz, decide_scenario, decide_onsite_log
 
 from app.schemas.admin_approvals import PendingApprovalsResponse
 from app.services.admin_approval_service import get_pending_approvals
@@ -38,11 +38,13 @@ from app.schemas.submission_history import (
     OnboardingHistoryResponse,
     QuizHistoryResponse,
     ScenarioHistoryResponse,
+    OnsiteLogHistoryResponse,
 )
 from app.services.submission_history_service import (
     get_onboarding_history,
     get_quiz_history,
     get_scenario_history,
+    get_onsite_log_history,
 )
 
 #from fastapi.responses import FileResponse
@@ -51,6 +53,26 @@ from app.services.submission_history_service import (
 
 from app.schemas.admin_user_review import AdminUserReviewResponse
 from app.services.admin_user_review_service import get_admin_user_review
+
+from app.schemas.content_access import ContentAccessLogsResponse
+from app.repositories import content_repo
+
+from app.schemas.certificate import CertificateCreate, CertificateOut
+from app.services.certificate_service import issue_certificate
+
+from app.schemas.crm import CRMLeadsListResponse, CRMLeadUpdateAdmin, CRMLeadOut
+from app.repositories import crm_repo
+from app.services.crm_service import admin_update_lead
+
+from app.schemas.crm_proposal import CRMProposalsListResponse, CRMProposalUpdateAdmin, CRMProposalOut
+from app.repositories import crm_proposal_repo
+from app.services.crm_proposal_service import admin_update_proposal
+
+from app.schemas.badge import BadgeCreate, BadgeOut
+from app.services.badge_service import issue_badge
+
+from app.schemas.admin_overview import AdminOverviewResponse
+from app.services.admin_overview_service import get_admin_overview
 
 #from fastapi import HTTPException
 
@@ -187,6 +209,21 @@ def admin_decide_scenario(
         db=db,
         admin_user_id=admin.user_id,
         scenario_id=scenario_id,
+        decision=payload.decision,
+        reason=payload.reason,
+    )
+
+@router.post("/approvals/onsite-log/{onsite_log_id}")
+def admin_decide_onsite_log(
+    onsite_log_id: int,
+    payload: ApprovalDecisionIn,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return decide_onsite_log(
+        db=db,
+        admin_user_id=admin.user_id,
+        onsite_log_id=onsite_log_id,
         decision=payload.decision,
         reason=payload.reason,
     )
@@ -348,3 +385,153 @@ def admin_user_review(
     admin_user=Depends(require_roles("admin")),
 ):
     return get_admin_user_review(db, user_id)
+
+@router.get("/users/{user_id}/submissions/onsite-logs", response_model=OnsiteLogHistoryResponse)
+def admin_get_user_onsite_log_history(
+    user_id: int,
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    return get_onsite_log_history(db=db, user_id=user_id, skip=skip, limit=limit)
+
+@router.get("/content-access", response_model=ContentAccessLogsResponse)
+def admin_content_access_logs(
+    skip: int = 0,
+    limit: int = 50,
+    user_id: int | None = None,
+    content_key: str | None = None,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    total, items = content_repo.list_content_access_logs(
+        db,
+        skip=skip,
+        limit=limit,
+        user_id=user_id,
+        content_key=content_key,
+    )
+    return {"total": total, "items": items}
+
+@router.post("/certificates", response_model=CertificateOut)
+def admin_issue_certificate(
+    payload: CertificateCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return issue_certificate(
+        db,
+        admin_user_id=admin.user_id,
+        user_id=payload.user_id,
+        title=payload.title,
+        certificate_url=payload.certificate_url,
+    )
+
+@router.get("/crm/leads", response_model=CRMLeadsListResponse)
+def admin_list_crm_leads(
+    skip: int = 0,
+    limit: int = 50,
+    status: str | None = None,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    total, items = crm_repo.list_leads(
+        db,
+        skip=skip,
+        limit=limit,
+        instructor_user_id=None,
+        status=status.upper() if status else None,
+    )
+    return {"total": total, "items": items}
+
+
+@router.patch("/crm/leads/{lead_id}", response_model=CRMLeadOut)
+def admin_patch_crm_lead(
+    lead_id: int,
+    payload: CRMLeadUpdateAdmin,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return admin_update_lead(
+        db,
+        admin_user_id=admin.user_id,
+        lead_id=lead_id,
+        status=payload.status,
+        admin_notes=payload.admin_notes,
+    )
+
+@router.get("/crm/proposals", response_model=CRMProposalsListResponse)
+def admin_list_crm_proposals(
+    skip: int = 0,
+    limit: int = 50,
+    status: str | None = None,
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    if limit > 200:
+        limit = 200
+    if skip < 0:
+        skip = 0
+
+    total, items = crm_proposal_repo.list_proposals(
+        db,
+        skip=skip,
+        limit=limit,
+        instructor_user_id=None,
+        status=status.upper() if status else None,
+    )
+    return {"total": total, "items": items}
+
+
+@router.patch("/crm/proposals/{proposal_id}", response_model=CRMProposalOut)
+def admin_patch_crm_proposal(
+    proposal_id: int,
+    payload: CRMProposalUpdateAdmin,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return admin_update_proposal(
+        db,
+        admin_user_id=admin.user_id,
+        proposal_id=proposal_id,
+        status=payload.status,
+        admin_notes=payload.admin_notes,
+    )
+
+@router.post("/badges", response_model=BadgeOut)
+def admin_issue_badge(
+    payload: BadgeCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(require_roles("admin")),
+):
+    return issue_badge(
+        db,
+        admin_user_id=admin.user_id,
+        user_id=payload.user_id,
+        title=payload.title,
+        badge_code=payload.badge_code,
+        badge_image_url=payload.badge_image_url,
+    )
+
+@router.get("/overview", response_model=AdminOverviewResponse)
+def admin_overview(
+    db: Session = Depends(get_db),
+    _: dict = Depends(require_roles("admin")),
+):
+    return get_admin_overview(db)

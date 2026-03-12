@@ -4,10 +4,16 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.repositories import intern_repo
+from app.services.points_service import award_points
+from app.utils.points_rules import INTERN_SUBMISSION_APPROVED_POINTS
 
+from app.services.audit_service import log_action
 
 _ALLOWED_SUB_STATUSES = {"PENDING", "APPROVED", "REJECTED"}
 _ALLOWED_TODO_STATUSES = {"TODO", "IN_PROGRESS", "DONE"}
+
+
+REASON_INTERN_SUBMISSION_APPROVED = "intern_submission_approved"
 
 
 def intern_submit_solution(
@@ -72,10 +78,13 @@ def admin_review_submission(
     if not sub:
         raise HTTPException(status_code=404, detail="Submission not found")
 
+    prev_status = (sub.status or "").strip().upper()
+
     decision = decision.strip().upper()
     if decision not in {"APPROVED", "REJECTED"}:
         raise HTTPException(status_code=400, detail="decision must be APPROVED or REJECTED")
 
+    # record review
     intern_repo.create_review(
         db,
         submission_id=submission_id,
@@ -84,7 +93,27 @@ def admin_review_submission(
         feedback=feedback.strip() if feedback else None,
     )
 
-    return intern_repo.set_submission_status(db, sub, status=decision)
+    # update submission status
+    updated = intern_repo.set_submission_status(db, sub, status=decision)
+
+    # award only on first transition to APPROVED
+    if decision == "APPROVED" and prev_status != "APPROVED":
+        award_points(
+            db,
+            user_id=updated.user_id,
+            points=INTERN_SUBMISSION_APPROVED_POINTS,
+            reason=REASON_INTERN_SUBMISSION_APPROVED,
+            entity_type="intern_submission",
+            entity_id=submission_id,
+        )
+    log_action(
+        db,
+        actor_user_id=reviewer_user_id,
+        action=f"intern_submission_{decision.lower()}",
+        entity_type="intern_submission",
+        entity_id=submission_id,
+    )
+    return updated
 
 
 def intern_create_todo(db: Session, *, user_id: int, title: str):
