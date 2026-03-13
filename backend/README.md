@@ -1,216 +1,366 @@
-# SpacePoint Portal API
+# SpacePoint Portal
 
-FastAPI backend for the SpacePoint Portal (role-based platform: Admin, Instructor, Ambassador, Intern).
+The **SpacePoint Portal** is a role-based digital platform designed to support the SpacePoint ecosystem by managing learning journeys, training workflows, collaboration activities, and engagement programs.
 
-## Tech Stack
+The system enables structured participation from multiple user roles including **Admins, Instructors, Ambassadors, and Interns**, each with dedicated workflows and permissions.
+
+This repository contains the **backend implementation of the SpacePoint Portal**, built using **FastAPI**, **PostgreSQL**, and **Docker**, following a scalable layered architecture.
+
+The backend exposes REST APIs responsible for managing:
+
+- Authentication and authorization
+- Role-based access control (RBAC)
+- Instructor onboarding workflows
+- Ambassador outreach and CRM activities
+- Intern task submission workflows
+- Administrative approvals
+- Opportunity management
+- Points and recognition systems
+- Certificates and badges
+- Platform analytics and moderation
+
+---
+
+# Project Repository
+
+GitHub Repository:
+
+https://github.com/MFaresJA/SpacePoint-Portal
+
+---
+
+# Platform Roles
+
+The portal supports multiple roles representing different participants in the SpacePoint ecosystem.
+
+## Admin
+
+Admins manage the entire platform and supervise all workflows.
+
+Admin capabilities include:
+
+- User management
+- Role assignment
+- Submission approvals
+- Platform analytics
+- Opportunity management
+- Recognition system management
+
+---
+
+## Instructor
+
+Instructors participate in educational workflows and must complete qualification stages before contributing.
+
+Instructor workflow includes:
+
+- Submitting onboarding information
+- Completing qualification quizzes
+- Submitting scenario responses
+- Logging onsite activities
+
+### Instructor Onboarding
+
+Instructors begin by submitting onboarding information which verifies their eligibility to continue the learning journey.
+
+![Instructor Onboarding](images/Instructor Onboarding.png)
+
+---
+
+### Instructor Quiz Submission
+
+After onboarding approval, instructors must complete qualification quizzes.
+
+![Instructor Quiz Submission](images/Instructor Quiz Submission.png)
+
+---
+
+### Scenario Submission
+
+Instructors complete scenario tasks used to evaluate practical knowledge.
+
+![Instructor Scenario](images/Instructor Scenario Submission.png)
+
+---
+
+### Onsite Activity Logging
+
+Instructors can log training activities performed during onsite sessions.
+
+![Instructor Onsite Logs](images/Instructor Onsite Logs.png)
+
+---
+
+# Ambassador Workflow
+
+Ambassadors support outreach and ecosystem growth.
+
+Ambassador responsibilities include:
+
+- Managing CRM leads
+- Submitting proposals
+- Supporting partnerships
+- Participating in outreach activities
+
+### CRM Lead Submission
+
+Ambassadors submit potential collaboration leads through the CRM system.
+
+![Ambassador Lead](images/Ambassador Submit Lead.png)
+
+---
+
+### Proposal Submission
+
+Ambassadors submit proposals for review by administrators.
+
+![Ambassador Proposal](images/Ambassador Submit Proposal.png)
+
+---
+
+# Intern Workflow
+
+Interns participate in development tasks and training programs.
+
+Intern activities include:
+
+- Completing assigned tasks
+- Submitting deliverables
+- Tracking learning progress
+- Participating in platform development
+
+### Intern Submission
+
+Interns upload project submissions for evaluation.
+
+![Intern Submission](images/Intern Submission.png)
+
+---
+
+# Admin Management
+
+Admins supervise and manage all platform activities.
+
+### User Management
+
+Admins can view and manage all platform users.
+
+![Admin Users](images/Admin Users List.png)
+
+---
+
+### Role Assignment
+
+Admins assign roles such as instructor, ambassador, or intern.
+
+![Admin Assign Role](images/Admin Assign Role.png)
+
+---
+
+### Platform Overview
+
+Admins have access to platform analytics through the overview dashboard.
+
+![Admin Overview](images/Admin Overview Dashboard.png)
+
+---
+
+# Recognition System
+
+The portal includes a recognition system to reward active participation.
+
+### Points System
+
+Users earn points based on participation and platform contributions.
+
+![Points System](images/Points Ledger.png)
+
+---
+
+### Certificates
+
+Certificates are issued when users complete major milestones.
+
+![Certificates](images/Certificates Management.png)
+
+---
+
+### Badges
+
+Badges reward achievements and contributions.
+
+![Badges](images/Badges Management.png)
+
+---
+
+# Opportunities Management
+
+Admins can publish opportunities available to the ecosystem.
+
+![Opportunities](images/Opportunities Management.png)
+
+---
+
+# Technology Stack
+
+The backend is implemented using the following technologies:
+
 - FastAPI
 - PostgreSQL
 - SQLAlchemy
-- Alembic (Migrations)
+- Alembic (database migrations)
 - JWT Authentication
-- Docker + Docker Compose
+- Docker
+- Docker Compose
 
-## Run with Docker (Recommended)
-From the `backend/` folder:
+---
 
-```bash
+# System Architecture
+
+The system follows a layered modular architecture.
+
+app/
+├── api/ # HTTP endpoints
+├── services/ # Business logic
+├── repositories/ # Database access layer
+├── models/ # ORM models
+├── schemas/ # Pydantic schemas
+├── core/ # configuration & security
+└── utils/ # helper utilities
+
+This architecture ensures separation of concerns, scalability, and maintainability.
+
+---
+
+# Running the Project
+
+Run the backend using Docker.
+
+From the `backend` folder:
+
+
 docker compose up --build
-```
 
-## API will be available at:
 
-Health: http://localhost:8000/health
-DB Health: http://localhost:8000/api/v1/health/db
-Docs (Swagger): http://localhost:8000/docs
+---
 
-## Authentication (JWT)
+# API Access
+
+After starting the system:
+
+Health check
+
+
+http://localhost:8000/health
+
+
+Database health
+
+
+http://localhost:8000/api/v1/health/db
+
+
+Swagger documentation
+
+
+http://localhost:8000/docs
+
+
+---
+
+# Authentication
 
 ### Register
 
-`POST /api/v1/auth/register`
+
+POST /api/v1/auth/register
+
 
 ### Login
 
-`POST /api/v1/auth/login`
+
+POST /api/v1/auth/login
+
 
 Returns:
 
-```json
+
 {
-  "access_token": "...",
-  "token_type": "bearer"
+"access_token": "...",
+"token_type": "bearer"
 }
-```
 
-Authorize in Swagger
 
-- Login
-- Copy access_token
-- Click Authorize
-- Paste:
-    Bearer YOUR_TOKEN_HERE
+Use the token in Swagger authorization:
 
-## RBAC (Role-Based Access Control)
+
+Bearer YOUR_TOKEN
+
+
+---
+
+# Role-Based Access Control
 
 Supported roles:
+
 - admin
 - instructor
 - ambassador
 - intern
 
-Role-protected endpoints:
+Protected routes include:
 
-- /api/v1/admin/*
-- /api/v1/instructor/*
-- /api/v1/ambassador/*
-- /api/v1/intern/*
 
-Behavior:
+/api/v1/admin/*
+/api/v1/instructor/*
+/api/v1/ambassador/*
+/api/v1/intern/*
 
-- 401 → Not authenticated
-- 403 → Authenticated but missing required role
 
-## Admin Capabilities (Week 3 Completed)
+Error behavior:
 
-Admin can:
-* Manage Roles
--   GET /api/v1/admin/users/{user_id}/roles
-- POST /api/v1/admin/users/{user_id}/roles/{role_name}
-- DELETE /api/v1/admin/users/{user_id}/roles/{role_name}
 
-* Manage User Status
-- PATCH /api/v1/admin/users/{user_id}/activate
-- PATCH /api/v1/admin/users/{user_id}/deactivate
-- PATCH /api/v1/admin/users/{user_id}/verify
-- PATCH /api/v1/admin/users/{user_id}/suspend
-- PATCH /api/v1/admin/users/{user_id}/unsuspend
+401 → Not authenticated
+403 → Missing required role
 
-* List & View Users
-- GET /api/v1/admin/users
-- GET /api/v1/admin/users/{user_id}
-- Pagination parameters:
-- skip → number of records to skip
-- limit → number of records to return
 
-* Example:
-- /api/v1/admin/users?skip=0&limit=50
+---
 
-## Database & Migrations
-- Alembic is used for migrations.
+# Database & Migrations
 
-* To create migration:
-```bash
+Alembic is used for database migrations.
+
+Create migration:
+
+
 alembic revision --autogenerate -m "message"
-```
-- To apply migration:
-```bash
+
+
+Apply migration:
+
+
 alembic upgrade head
-```
 
-Initial migration creates:
-- users table
-- roles table
-- user_roles table
-
-## Environment Files
-- .env.example → template
-- .env.dev → local development (ignored by git)
-- .env.prod.example → production template only
-
-## Architecture Summary (Aligned with Architecture Pack v1)
-- app/main.py → FastAPI app entrypoint
-- app/api/ → routers (HTTP endpoints)
-- app/services/ → business logic
-- app/repositories/ → database access layer
-- app/models/ → ORM models (ERD aligned)
-- app/core/ → config, security, logging
-
-## Common Issues
-Docker command not found
-Install Docker Desktop and ensure it is running.
-
-# WSL needs updating (Windows)
-Run PowerShell as Admin:
-```bash 
-wsl --update
-```
-
-## Port already in use (8000 or 5432)
-Stop the conflicting service or change ports in docker-compose.yml.
-
-## Stop containers backend/ path: 
-From the 
-```bash
-docker compose down
-```
 
 ---
 
-## 📌 API Reference (Quick Table)
+# Environment Files
 
-### Public / Utility
+Environment configuration templates:
 
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/health` | ❌ | - | API health check |
-| GET | `/api/v1/health/db` | ❌ | - | Database health check |
 
----
+.env.example
+.env.dev
+.env.prod.example
 
-### Authentication
-
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| POST | `/api/v1/auth/register` | ❌ | - | Create new user + return JWT |
-| POST | `/api/v1/auth/login` | ❌ | - | Login user + return JWT |
-| GET | `/api/v1/auth/me` | ✅ | any | Get current logged-in user info |
 
 ---
 
-### Admin (RBAC: admin)
+# Author
 
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/api/v1/admin/ping` | ✅ | admin | Test admin access |
-| GET | `/api/v1/admin/users` | ✅ | admin | List users (pagination: skip, limit) |
-| GET | `/api/v1/admin/users/{user_id}` | ✅ | admin | Get one user by id |
+**Mohammad Fares Aljamous**
 
-**Role Management**
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/api/v1/admin/users/{user_id}/roles` | ✅ | admin | List roles for a user |
-| POST | `/api/v1/admin/users/{user_id}/roles/{role_name}` | ✅ | admin | Assign role to user |
-| DELETE | `/api/v1/admin/users/{user_id}/roles/{role_name}` | ✅ | admin | Remove role from user |
+Computer Engineering — Artificial Intelligence Concentration  
+Abu Dhabi University
 
-**User Status**
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| PATCH | `/api/v1/admin/users/{user_id}/activate` | ✅ | admin | Activate user |
-| PATCH | `/api/v1/admin/users/{user_id}/deactivate` | ✅ | admin | Deactivate user |
-| PATCH | `/api/v1/admin/users/{user_id}/verify` | ✅ | admin | Verify user |
-| PATCH | `/api/v1/admin/users/{user_id}/suspend` | ✅ | admin | Suspend user |
-| PATCH | `/api/v1/admin/users/{user_id}/unsuspend` | ✅ | admin | Unsuspend user |
-
----
-
-### Instructor (RBAC: instructor)
-
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/api/v1/instructor/ping` | ✅ | instructor | Test instructor access |
-
----
-
-### Ambassador (RBAC: ambassador)
-
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/api/v1/ambassador/ping` | ✅ | ambassador | Test ambassador access |
-
----
-
-### Intern (RBAC: intern)
-
-| Method | Endpoint | Auth | Role | Description |
-|-------:|----------|------|------|-------------|
-| GET | `/api/v1/intern/ping` | ✅ | intern | Test intern access |
+Internship Project — SpacePoint Portal Backend

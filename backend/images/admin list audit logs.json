@@ -1,0 +1,157 @@
+{
+  "total": 19,
+  "items": [
+    {
+      "id": 19,
+      "actor_user_id": 4,
+      "action": "crm_proposal_updated",
+      "entity_type": "crm_proposal",
+      "entity_id": 1,
+      "created_at": "2026-03-11T23:10:13.431595Z"
+    },
+    {
+      "id": 18,
+      "actor_user_id": 8,
+      "action": "crm_proposal_submitted",
+      "entity_type": "crm_proposal",
+      "entity_id": 1,
+      "created_at": "2026-03-11T23:07:18.026645Z"
+    },
+    {
+      "id": 17,
+      "actor_user_id": 4,
+      "action": "crm_lead_updated",
+      "entity_type": "crm_lead",
+      "entity_id": 1,
+      "created_at": "2026-03-11T23:04:42.416712Z"
+    },
+    {
+      "id": 16,
+      "actor_user_id": 8,
+      "action": "crm_lead_submitted",
+      "entity_type": "crm_lead",
+      "entity_id": 1,
+      "created_at": "2026-03-11T23:01:10.932892Z"
+    },
+    {
+      "id": 15,
+      "actor_user_id": 8,
+      "action": "opportunity_created",
+      "entity_type": "opportunity",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:58:52.086375Z"
+    },
+    {
+      "id": 14,
+      "actor_user_id": 4,
+      "action": "intern_submission_approved",
+      "entity_type": "intern_submission",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:55:29.487302Z"
+    },
+    {
+      "id": 13,
+      "actor_user_id": null,
+      "action": "impact_approved",
+      "entity_type": "impact_report",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:32:36.280516Z"
+    },
+    {
+      "id": 12,
+      "actor_user_id": null,
+      "action": "recruitment_approved",
+      "entity_type": "recruitment_entry",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:28:10.510672Z"
+    },
+    {
+      "id": 11,
+      "actor_user_id": 4,
+      "action": "onsite_log_approved",
+      "entity_type": "onsite_log",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:00:07.751458Z"
+    },
+    {
+      "id": 10,
+      "actor_user_id": 4,
+      "action": "badge_auto_issued",
+      "entity_type": "badge",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:00:07.726538Z"
+    },
+    {
+      "id": 9,
+      "actor_user_id": 4,
+      "action": "certificate_auto_issued",
+      "entity_type": "certificate",
+      "entity_id": 1,
+      "created_at": "2026-03-11T22:00:07.684253Z"
+    },
+    {
+      "id": 8,
+      "actor_user_id": 8,
+      "action": "onsite_log_submitted",
+      "entity_type": "onsite_log",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:56:08.409120Z"
+    },
+    {
+      "id": 7,
+      "actor_user_id": 4,
+      "action": "scenario_approved",
+      "entity_type": "scenario",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:52:04.440333Z"
+    },
+    {
+      "id": 6,
+      "actor_user_id": 8,
+      "action": "scenario_submitted",
+      "entity_type": "scenario",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:45:05.783742Z"
+    },
+    {
+      "id": 5,
+      "actor_user_id": 4,
+      "action": "quiz_approved",
+      "entity_type": "quiz",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:40:00.685453Z"
+    },
+    {
+      "id": 4,
+      "actor_user_id": 8,
+      "action": "quiz_submitted",
+      "entity_type": "quiz",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:33:59.987885Z"
+    },
+    {
+      "id": 3,
+      "actor_user_id": 8,
+      "action": "onboarding_submitted",
+      "entity_type": "onboarding",
+      "entity_id": 1,
+      "created_at": "2026-03-11T21:28:13.991992Z"
+    },
+    {
+      "id": 2,
+      "actor_user_id": 4,
+      "action": "content_created",
+      "entity_type": "content_item",
+      "entity_id": 2,
+      "created_at": "2026-03-11T19:36:55.671879Z"
+    },
+    {
+      "id": 1,
+      "actor_user_id": 4,
+      "action": "content_created",
+      "entity_type": "content_item",
+      "entity_id": 1,
+      "created_at": "2026-03-11T19:35:07.064603Z"
+    }
+  ]
+}

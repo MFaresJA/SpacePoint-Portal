@@ -1,0 +1,55 @@
+{
+  "total": 6,
+  "items": [
+    {
+      "user_id": 4,
+      "email": "testadmin@spacepoint.ai",
+      "is_active": true,
+      "is_verified": true,
+      "is_suspended": false,
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "user_id": 7,
+      "email": "OmarZaineh@spacepoint.ai",
+      "is_active": true,
+      "is_verified": false,
+      "is_suspended": false,
+      "roles": []
+    },
+    {
+      "user_id": 8,
+      "email": "MuazzAhmad@spacepoint.ai",
+      "is_active": true,
+      "is_verified": false,
+      "is_suspended": false,
+      "roles": []
+    },
+    {
+      "user_id": 9,
+      "email": "AhmadYacien@spacepoint.ai",
+      "is_active": true,
+      "is_verified": false,
+      "is_suspended": false,
+      "roles": []
+    },
+    {
+      "user_id": 10,
+      "email": "noor.hassan@spacepoint.ai",
+      "is_active": true,
+      "is_verified": false,
+      "is_suspended": false,
+      "roles": []
+    },
+    {
+      "user_id": 11,
+      "email": "mariam.khaled@spacepoint.ai",
+      "is_active": true,
+      "is_verified": false,
+      "is_suspended": false,
+      "roles": []
+    }
+  ]
+}
