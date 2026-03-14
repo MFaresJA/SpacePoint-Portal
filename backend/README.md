@@ -76,7 +76,7 @@ Instructor workflow includes:
 
 Instructors begin by submitting onboarding information which verifies their eligibility to continue the learning journey.
 
-![Instructor Onboarding](images/submit_onboarding.png)
+![Instructor Onboarding](images/submitonboarding.png)
 
 ---
 
@@ -84,7 +84,7 @@ Instructors begin by submitting onboarding information which verifies their elig
 
 After onboarding approval, instructors must complete qualification quizzes.
 
-![Instructor Quiz Submission](images/instructor 8 muazz submit quiz.png)
+![Instructor Quiz Submission](images/submitquiz.png)
 
 ---
 
@@ -92,7 +92,7 @@ After onboarding approval, instructors must complete qualification quizzes.
 
 Instructors complete scenario tasks used to evaluate practical knowledge.
 
-![Instructor Scenario](images/instructor submit scenario .png)
+![Instructor Scenario](images/instructorsubmitscenario.png)
 
 ---
 
@@ -100,7 +100,7 @@ Instructors complete scenario tasks used to evaluate practical knowledge.
 
 Instructors can log training activities performed during onsite sessions.
 
-![Instructor Onsite Logs](images/submit onsite logs by instructor 8 muazz.png)
+![Instructor Onsite Logs](images/submitonsitelogsbyinstructor8muazz.png)
 
 ---
 
