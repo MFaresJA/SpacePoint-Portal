@@ -76,7 +76,7 @@ Instructor workflow includes:
 
 Instructors begin by submitting onboarding information which verifies their eligibility to continue the learning journey.
 
-![Instructor Onboarding](images/instructor 8 muazz submit onboarding.png)
+![Instructor Onboarding](images/submit onboarding.png)
 
 ---
 
