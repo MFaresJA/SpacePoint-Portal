@@ -21,11 +21,24 @@ The backend exposes REST APIs responsible for managing:
 
 ---
 
-# Project Repository
+# Platform Workflow Overview
 
-GitHub Repository:
+The SpacePoint Portal manages multiple learning and collaboration workflows.
 
-https://github.com/MFaresJA/SpacePoint-Portal
+Users progress through structured activities depending on their assigned roles.
+
+Main workflows include:
+
+1. Instructor onboarding and qualification
+2. Ambassador outreach and CRM activities
+3. Intern project submission and evaluation
+4. Administrative approvals and moderation
+5. Opportunity management
+6. Points and recognition system
+
+The diagram below illustrates the overall workflow of the platform.
+
+![Platform Workflow](images/workflow.png)
 
 ---
 
@@ -201,6 +214,43 @@ Admins can publish opportunities available to the ecosystem.
 
 ---
 
+
+# Portal Interface Screenshots
+
+Below are examples of the SpacePoint Portal interface demonstrating various workflows and features across different user roles.
+
+### Instructor Interface
+
+![Instructor Dashboard](images/Instructor Dashboard.png)
+
+![Instructor Quiz Page](images/Instructor Quiz Page.png)
+
+---
+
+### Ambassador Interface
+
+![Ambassador Dashboard](images/Ambassador Dashboard.png)
+
+![Ambassador CRM](images/Ambassador CRM Leads.png)
+
+---
+
+### Admin Interface
+
+![Admin Dashboard](images/Admin Dashboard.png)
+
+![Admin Users](images/Admin Users List.png)
+
+---
+
+### Intern Interface
+
+![Intern Dashboard](images/Intern Dashboard.png)
+
+![Intern Submission](images/Intern Submission.png)
+
+---
+
 # Technology Stack
 
 The backend is implemented using the following technologies:
@@ -214,6 +264,23 @@ The backend is implemented using the following technologies:
 - Docker Compose
 
 ---
+---
+
+# System Architecture Overview
+
+The SpacePoint Portal backend follows a modular layered architecture designed to ensure scalability, maintainability, and separation of concerns.
+
+The system is composed of several layers:
+
+- **API Layer** → Handles HTTP requests through FastAPI routers
+- **Service Layer** → Contains business logic and workflow processing
+- **Repository Layer** → Handles database interactions
+- **Model Layer** → Defines ORM database models
+- **Schema Layer** → Defines request/response data structures using Pydantic
+
+The backend communicates with a **PostgreSQL database** and is deployed using **Docker containers**.
+
+![System Architecture](images/architecture.png)
 
 # System Architecture
 
@@ -229,6 +296,30 @@ app/
 └── utils/ # helper utilities
 
 This architecture ensures separation of concerns, scalability, and maintainability.
+
+---
+
+# Database Design (ERD)
+
+The platform database is designed using relational modeling with SQLAlchemy ORM and managed through Alembic migrations.
+
+Key entities include:
+
+- Users
+- Roles
+- User Roles
+- Submissions
+- Onsite Logs
+- CRM Leads
+- CRM Proposals
+- Opportunities
+- Points Ledger
+- Certificates
+- Badges
+
+The Entity Relationship Diagram below illustrates the core relationships between the main tables.
+
+![Database ERD](images/erd.png)
 
 ---
 
