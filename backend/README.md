@@ -84,7 +84,7 @@ Instructors begin by submitting onboarding information which verifies their elig
 
 After onboarding approval, instructors must complete qualification quizzes.
 
-![Instructor Quiz Submission](images/Instructor Quiz Submission.png)
+![Instructor Quiz Submission](backend/images/Instructor Quiz Submission.png)
 
 ---
 
@@ -319,7 +319,7 @@ Key entities include:
 
 The Entity Relationship Diagram below illustrates the core relationships between the main tables.
 
-![Database ERD](images/erd.png)
+![Database ERD](images/ERD.png)
 
 ---
 
