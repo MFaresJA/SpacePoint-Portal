@@ -285,3 +285,170 @@ The backend communicates with a **PostgreSQL database** and is deployed using **
 # System Architecture
 
 The system follows a layered modular architecture.
+
+app/
+├── api/ # HTTP endpoints
+├── services/ # Business logic
+├── repositories/ # Database access layer
+├── models/ # ORM models
+├── schemas/ # Pydantic schemas
+├── core/ # configuration & security
+└── utils/ # helper utilities
+
+
+This architecture ensures separation of concerns, scalability, and maintainability.
+
+---
+
+# Database Design (ERD)
+
+The platform database is designed using relational modeling with SQLAlchemy ORM and managed through Alembic migrations.
+
+Key entities include:
+
+- Users
+- Roles
+- User Roles
+- Submissions
+- Onsite Logs
+- CRM Leads
+- CRM Proposals
+- Opportunities
+- Points Ledger
+- Certificates
+- Badges
+
+The Entity Relationship Diagram below illustrates the core relationships between the main tables.
+
+![Database ERD](images/ERD.png)
+
+---
+
+# Running the Project
+
+Run the backend using Docker.
+
+From the `backend` folder:
+docker compose up --build
+---
+
+# API Access
+
+After starting the system:
+
+Health check
+
+
+http://localhost:8000/health
+
+
+Database health
+
+
+http://localhost:8000/api/v1/health/db
+
+
+Swagger documentation
+
+
+http://localhost:8000/docs
+
+
+---
+
+# Authentication
+
+### Register
+
+
+POST /api/v1/auth/register
+
+
+### Login
+
+
+POST /api/v1/auth/login
+
+
+Returns:
+
+
+{
+"access_token": "...",
+"token_type": "bearer"
+}
+
+
+Use the token in Swagger authorization:
+
+
+Bearer YOUR_TOKEN
+
+
+---
+
+# Role-Based Access Control
+
+Supported roles:
+
+- admin
+- instructor
+- ambassador
+- intern
+
+Protected routes include:
+
+
+/api/v1/admin/*
+/api/v1/instructor/*
+/api/v1/ambassador/*
+/api/v1/intern/*
+
+
+Error behavior:
+
+
+401 → Not authenticated
+403 → Missing required role
+
+
+---
+
+# Database & Migrations
+
+Alembic is used for database migrations.
+
+Create migration:
+
+
+alembic revision --autogenerate -m "message"
+
+
+Apply migration:
+
+
+alembic upgrade head
+
+
+---
+
+# Environment Files
+
+Environment configuration templates:
+
+
+.env.example
+.env.dev
+.env.prod.example
+
+
+---
+
+# Author
+
+**Mohammad Fares Aljamous**
+
+Computer Engineering — Artificial Intelligence Concentration  
+Abu Dhabi University
+
+Internship Project — SpacePoint Portal Backend
