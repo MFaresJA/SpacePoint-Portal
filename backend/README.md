@@ -119,7 +119,7 @@ Ambassador responsibilities include:
 
 Ambassadors submit potential collaboration leads through the CRM system.
 
-![Ambassador Lead](images/Create Recruitment by ambassador 9 Ahmad.png)
+![Ambassador Lead](images/CreateRecruitmentbyambassador9Ahmad.png)
 
 ---
 
@@ -127,7 +127,7 @@ Ambassadors submit potential collaboration leads through the CRM system.
 
 Ambassadors submit proposals for review by administrators.
 
-![Ambassador Proposal](images/instructor muazz crearte proposal for CRM lead created for alnoor school.png)
+![Ambassador Proposal](images/instructormuazzcrearteproposalforCRMleadcreatedforalnoorschool.png)
 
 ---
 
@@ -146,7 +146,7 @@ Intern activities include:
 
 Interns upload project submissions for evaluation.
 
-![Intern Submission](images/intern submit solution for quiz.png)
+![Intern Submission](images/internsubmitsolutionforquiz.png)
 
 ---
 
@@ -158,7 +158,7 @@ Admins supervise and manage all platform activities.
 
 Admins can view and manage all platform users.
 
-![Admin Users](images/try admin list users to see the first 50 users becase using skip 0 and limit 50 and it list all users.png)
+![Admin Users](images/trylistallusers.png)
 
 ---
 
@@ -166,7 +166,7 @@ Admins can view and manage all platform users.
 
 Admins assign roles such as instructor, ambassador, or intern.
 
-![Admin Assign Role](images/admin assign role to user 7 Omar as intern.png)
+![Admin Assign Role](images/adminassignroletouser7Omarasintern.png)
 
 ---
 
@@ -174,7 +174,7 @@ Admins assign roles such as instructor, ambassador, or intern.
 
 Admins have access to platform analytics through the overview dashboard.
 
-![Admin Overview](images/admin overview.png)
+![Admin Overview](images/adminoverview.png)
 
 ---
 
@@ -186,7 +186,7 @@ The portal includes a recognition system to reward active participation.
 
 Users earn points based on participation and platform contributions.
 
-![Points System](images/points for instructor 8 muazz.png)
+![Points System](images/pointsforinstructor8muazz.png)
 
 ---
 
@@ -194,7 +194,7 @@ Users earn points based on participation and platform contributions.
 
 Certificates are issued when users complete major milestones.
 
-![Certificates](images/completion certificate visible for instructor muazz 8.png)
+![Certificates](images/completioncertificatevisibleforinstructormuazz8.png)
 
 ---
 
@@ -202,7 +202,7 @@ Certificates are issued when users complete major milestones.
 
 Badges reward achievements and contributions.
 
-![Badges](images/Master Trainer Badge for instructor muazz 8.png)
+![Badges](images/MasterTrainerBadgeforinstructormuazz8.png)
 
 ---
 
@@ -210,7 +210,7 @@ Badges reward achievements and contributions.
 
 Admins can publish opportunities available to the ecosystem.
 
-![Opportunities](images/list opportunities.png)
+![Opportunities](images/listopportunities.png)
 
 ---
 
@@ -220,33 +220,33 @@ Below are examples of the SpacePoint Portal interface demonstrating various work
 
 ### Instructor Interface
 
-![Instructor Dashboard](images/spacepoint portal instructor.png)
+![Instructor Dashboard](images/spacepointportalinstructor.png)
 
-![Instructor Quiz Page](images/server response to the quiz submitted by user 8 muazz.png)
+![Instructor Quiz Page](images/serverresponsetothequizsubmittedbyuser8muazz.png)
 
 ---
 
 ### Ambassador Interface
 
-![Ambassador Dashboard](images/spacepoint portal ambassador.png)
+![Ambassador Dashboard](images/spacepointportalambassador.png)
 
-![Ambassador CRM](images/spacepoint portal crm.png)
+![Ambassador CRM](images/spacepointportalcrm.png)
 
 ---
 
 ### Admin Interface
 
-![Admin Dashboard](images/spacepoint portal admin 1.png)
+![Admin Dashboard](images/spacepointportaladmin1.png)
 
-![Admin Users](images/try admin list users to see the first 50 users becase using skip 0 and limit 50 and it list all users.png)
+![Admin Users](images/trylistallusers.png)
 
 ---
 
 ### Intern Interface
 
-![Intern Dashboard](images/spacepoint portal intern.png)
+![Intern Dashboard](images/spacepointportalintern.png)
 
-![Intern Submission](images/intern submit solution for quiz.png)
+![Intern Submission](images/internsubmitsolutionforquiz.png)
 
 ---
 
