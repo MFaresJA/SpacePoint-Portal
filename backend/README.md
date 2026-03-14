@@ -76,7 +76,7 @@ Instructor workflow includes:
 
 Instructors begin by submitting onboarding information which verifies their eligibility to continue the learning journey.
 
-![Instructor Onboarding](images/Instructor Onboarding.png)
+![Instructor Onboarding](images/instructor 8 muazz submit onboarding.png)
 
 ---
 
@@ -84,7 +84,7 @@ Instructors begin by submitting onboarding information which verifies their elig
 
 After onboarding approval, instructors must complete qualification quizzes.
 
-![Instructor Quiz Submission](backend/images/Instructor Quiz Submission.png)
+![Instructor Quiz Submission](images/instructor 8 muazz submit quiz.png)
 
 ---
 
@@ -92,7 +92,7 @@ After onboarding approval, instructors must complete qualification quizzes.
 
 Instructors complete scenario tasks used to evaluate practical knowledge.
 
-![Instructor Scenario](images/Instructor Scenario Submission.png)
+![Instructor Scenario](images/instructor submit scenario .png)
 
 ---
 
@@ -100,7 +100,7 @@ Instructors complete scenario tasks used to evaluate practical knowledge.
 
 Instructors can log training activities performed during onsite sessions.
 
-![Instructor Onsite Logs](images/Instructor Onsite Logs.png)
+![Instructor Onsite Logs](images/submit onsite logs by instructor 8 muazz.png)
 
 ---
 
@@ -119,7 +119,7 @@ Ambassador responsibilities include:
 
 Ambassadors submit potential collaboration leads through the CRM system.
 
-![Ambassador Lead](images/Ambassador Submit Lead.png)
+![Ambassador Lead](images/Create Recruitment by ambassador 9 Ahmad.png)
 
 ---
 
@@ -127,7 +127,7 @@ Ambassadors submit potential collaboration leads through the CRM system.
 
 Ambassadors submit proposals for review by administrators.
 
-![Ambassador Proposal](images/Ambassador Submit Proposal.png)
+![Ambassador Proposal](images/instructor muazz crearte proposal for CRM lead created for alnoor school.png)
 
 ---
 
@@ -146,7 +146,7 @@ Intern activities include:
 
 Interns upload project submissions for evaluation.
 
-![Intern Submission](images/Intern Submission.png)
+![Intern Submission](images/intern submit solution for quiz.png)
 
 ---
 
@@ -158,7 +158,7 @@ Admins supervise and manage all platform activities.
 
 Admins can view and manage all platform users.
 
-![Admin Users](images/Admin Users List.png)
+![Admin Users](images/try admin list users to see the first 50 users becase using skip 0 and limit 50 and it list all users.png)
 
 ---
 
@@ -166,7 +166,7 @@ Admins can view and manage all platform users.
 
 Admins assign roles such as instructor, ambassador, or intern.
 
-![Admin Assign Role](images/Admin Assign Role.png)
+![Admin Assign Role](images/admin assign role to user 7 Omar as intern.png)
 
 ---
 
@@ -174,7 +174,7 @@ Admins assign roles such as instructor, ambassador, or intern.
 
 Admins have access to platform analytics through the overview dashboard.
 
-![Admin Overview](images/Admin Overview Dashboard.png)
+![Admin Overview](images/admin overview.png)
 
 ---
 
@@ -186,7 +186,7 @@ The portal includes a recognition system to reward active participation.
 
 Users earn points based on participation and platform contributions.
 
-![Points System](images/Points Ledger.png)
+![Points System](images/points for instructor 8 muazz.png)
 
 ---
 
@@ -194,7 +194,7 @@ Users earn points based on participation and platform contributions.
 
 Certificates are issued when users complete major milestones.
 
-![Certificates](images/Certificates Management.png)
+![Certificates](images/completion certificate visible for instructor muazz 8.png)
 
 ---
 
@@ -202,7 +202,7 @@ Certificates are issued when users complete major milestones.
 
 Badges reward achievements and contributions.
 
-![Badges](images/Badges Management.png)
+![Badges](images/Master Trainer Badge for instructor muazz 8.png)
 
 ---
 
@@ -210,10 +210,9 @@ Badges reward achievements and contributions.
 
 Admins can publish opportunities available to the ecosystem.
 
-![Opportunities](images/Opportunities Management.png)
+![Opportunities](images/list opportunities.png)
 
 ---
-
 
 # Portal Interface Screenshots
 
@@ -221,33 +220,33 @@ Below are examples of the SpacePoint Portal interface demonstrating various work
 
 ### Instructor Interface
 
-![Instructor Dashboard](images/Instructor Dashboard.png)
+![Instructor Dashboard](images/spacepoint portal instructor.png)
 
-![Instructor Quiz Page](images/Instructor Quiz Page.png)
+![Instructor Quiz Page](images/server response to the quiz submitted by user 8 muazz.png)
 
 ---
 
 ### Ambassador Interface
 
-![Ambassador Dashboard](images/Ambassador Dashboard.png)
+![Ambassador Dashboard](images/spacepoint portal ambassador.png)
 
-![Ambassador CRM](images/Ambassador CRM Leads.png)
+![Ambassador CRM](images/spacepoint portal crm.png)
 
 ---
 
 ### Admin Interface
 
-![Admin Dashboard](images/Admin Dashboard.png)
+![Admin Dashboard](images/spacepoint portal admin 1.png)
 
-![Admin Users](images/Admin Users List.png)
+![Admin Users](images/try admin list users to see the first 50 users becase using skip 0 and limit 50 and it list all users.png)
 
 ---
 
 ### Intern Interface
 
-![Intern Dashboard](images/Intern Dashboard.png)
+![Intern Dashboard](images/spacepoint portal intern.png)
 
-![Intern Submission](images/Intern Submission.png)
+![Intern Submission](images/intern submit solution for quiz.png)
 
 ---
 
@@ -263,7 +262,6 @@ The backend is implemented using the following technologies:
 - Docker
 - Docker Compose
 
----
 ---
 
 # System Architecture Overview
@@ -282,176 +280,8 @@ The backend communicates with a **PostgreSQL database** and is deployed using **
 
 ![System Architecture](images/architecture.png)
 
+---
+
 # System Architecture
 
 The system follows a layered modular architecture.
-
-app/
-├── api/ # HTTP endpoints
-├── services/ # Business logic
-├── repositories/ # Database access layer
-├── models/ # ORM models
-├── schemas/ # Pydantic schemas
-├── core/ # configuration & security
-└── utils/ # helper utilities
-
-This architecture ensures separation of concerns, scalability, and maintainability.
-
----
-
-# Database Design (ERD)
-
-The platform database is designed using relational modeling with SQLAlchemy ORM and managed through Alembic migrations.
-
-Key entities include:
-
-- Users
-- Roles
-- User Roles
-- Submissions
-- Onsite Logs
-- CRM Leads
-- CRM Proposals
-- Opportunities
-- Points Ledger
-- Certificates
-- Badges
-
-The Entity Relationship Diagram below illustrates the core relationships between the main tables.
-
-![Database ERD](images/ERD.png)
-
----
-
-# Running the Project
-
-Run the backend using Docker.
-
-From the `backend` folder:
-
-
-docker compose up --build
-
-
----
-
-# API Access
-
-After starting the system:
-
-Health check
-
-
-http://localhost:8000/health
-
-
-Database health
-
-
-http://localhost:8000/api/v1/health/db
-
-
-Swagger documentation
-
-
-http://localhost:8000/docs
-
-
----
-
-# Authentication
-
-### Register
-
-
-POST /api/v1/auth/register
-
-
-### Login
-
-
-POST /api/v1/auth/login
-
-
-Returns:
-
-
-{
-"access_token": "...",
-"token_type": "bearer"
-}
-
-
-Use the token in Swagger authorization:
-
-
-Bearer YOUR_TOKEN
-
-
----
-
-# Role-Based Access Control
-
-Supported roles:
-
-- admin
-- instructor
-- ambassador
-- intern
-
-Protected routes include:
-
-
-/api/v1/admin/*
-/api/v1/instructor/*
-/api/v1/ambassador/*
-/api/v1/intern/*
-
-
-Error behavior:
-
-
-401 → Not authenticated
-403 → Missing required role
-
-
----
-
-# Database & Migrations
-
-Alembic is used for database migrations.
-
-Create migration:
-
-
-alembic revision --autogenerate -m "message"
-
-
-Apply migration:
-
-
-alembic upgrade head
-
-
----
-
-# Environment Files
-
-Environment configuration templates:
-
-
-.env.example
-.env.dev
-.env.prod.example
-
-
----
-
-# Author
-
-**Mohammad Fares Aljamous**
-
-Computer Engineering — Artificial Intelligence Concentration  
-Abu Dhabi University
-
-Internship Project — SpacePoint Portal Backend
